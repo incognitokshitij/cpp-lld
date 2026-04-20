@@ -1,0 +1,18 @@
+# Compiled binaries (no extension, next to .cpp source)
+*.out
+*.exe
+*.o
+*.obj
+
+# VSCode Code Runner temp files
+tempCodeRunnerFile.cpp
+
+# macOS
+.DS_Store
+
+# Specific compiled outputs in this repo
+hello
+oops/classAndObject
+oops/enum
+solid/srp/followed
+solid/srp/violated
