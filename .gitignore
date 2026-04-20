@@ -1,4 +1,11 @@
-# Compiled binaries (no extension, next to .cpp source)
+# Ignore all extensionless files anywhere in the repo
+# (compiled C++ binaries on macOS/Linux have no extension)
+*
+!*/
+!*.*
+!.gitignore
+
+# Other compiled artefacts
 *.out
 *.exe
 *.o
@@ -10,11 +17,5 @@ tempCodeRunnerFile.cpp
 # macOS
 .DS_Store
 
-# Specific compiled outputs in this repo
-hello
-oops/classAndObject
-oops/enum
-solid/srp/followed
-solid/srp/violated
-solid/ocp/followed
-solid/ocp/violated
+# Claude Code local data
+.claude/
