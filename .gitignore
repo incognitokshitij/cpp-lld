@@ -16,3 +16,5 @@ oops/classAndObject
 oops/enum
 solid/srp/followed
 solid/srp/violated
+solid/ocp/followed
+solid/ocp/violated
