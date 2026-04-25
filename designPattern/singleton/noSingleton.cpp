@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class NoSingleton {
+public:
+  NoSingleton() {
+    cout << "Singleton Constructor called. New Object created." << endl;
+  }
+};
+
+int main() {
+  NoSingleton *s1 = new NoSingleton();
+  NoSingleton *s2 = new NoSingleton();
+
+  cout << "isSame: " << (s1 == s2 ? "yes" : "no") << endl;
+  return 0;
+}
