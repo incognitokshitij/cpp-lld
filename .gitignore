@@ -22,3 +22,4 @@ tempCodeRunnerFile.cpp
 
 # Claude Code local data
 .claude/
+.vscode/settings.json
