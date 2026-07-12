@@ -3,11 +3,13 @@
   "configurations": [
     {
       "name": "C/C++ Runner: Debug Session",
-      "type": "lldb",
+      "type": "cppvsdbg",
       "request": "launch",
       "args": [],
-      "cwd": ".",
-      "program": "build/Debug/outDebug"
+      "stopAtEntry": false,
+      "console": "externalTerminal",
+      "cwd": "c:/Users/Kshitij Varshney/Desktop/projects/cpp-lld",
+      "program": "c:/Users/Kshitij Varshney/Desktop/projects/cpp-lld/build/Debug/outDebug"
     }
   ]
 }
