@@ -14,6 +14,9 @@
 # VSCode Code Runner temp files
 tempCodeRunnerFile.cpp
 
+# Local VS Code user settings
+.vscode/settings.json
+
 # macOS
 .DS_Store
 
