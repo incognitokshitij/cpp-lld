@@ -1,145 +1,68 @@
-
-
-#include <bits/stdc++.h>
-
+#include <iostream>
 using namespace std;
 
-class VersionControlSystem {
-public:
-  void pullLatestChanges(string branch) {
-    cout << "VCS: Pulling latest changes from '" << branch << "'..." << endl;
-    simulateDelay();
-    cout << "VCS: Pull complete." << endl;
-  }
+// ---------- Subsystem classes (unchanged) ----------
 
-private:
-  void simulateDelay() { this_thread::sleep_for(chrono::milliseconds(1000)); }
-};
-
-class BuildSystem {
+class Account {
 public:
-  bool compileProject() {
-    cout << "BuildSystem: Compiling project..." << endl;
-    simulateDelay(2000);
-    cout << "BuildSystem: Build successful." << endl;
+  bool verifyAccount(string accountNumber) {
+    cout << "Account verified: " << accountNumber << endl;
     return true;
   }
-
-  string getArtifactPath() {
-    string path = "target/myapplication-1.0.jar";
-    cout << "BuildSystem: Artifact located at " << path << endl;
-    return path;
-  }
-
-private:
-  void simulateDelay(int ms) {
-    this_thread::sleep_for(chrono::milliseconds(ms));
-  }
 };
-class TestingFramework {
+
+class Security {
 public:
-  bool runUnitTests() {
-    cout << "Testing: Running unit tests..." << endl;
-    simulateDelay(1500);
-    cout << "Testing: Unit tests passed." << endl;
+  bool checkPin(string pin) {
+    cout << "PIN verified" << endl;
     return true;
   }
+};
 
-  bool runIntegrationTests() {
-    cout << "Testing: Running integration tests..." << endl;
-    simulateDelay(3000);
-    cout << "Testing: Integration tests passed." << endl;
+class Funds {
+public:
+  bool hasSufficientFunds(double amount) {
+    cout << "Sufficient funds available" << endl;
     return true;
   }
-
-private:
-  void simulateDelay(int ms) {
-    this_thread::sleep_for(chrono::milliseconds(ms));
-  }
+  void debit(double amount) { cout << "Debited: $" << amount << endl; }
 };
-class DeploymentTarget {
+
+class Notification {
 public:
-  void transferArtifact(string artifactPath, string server) {
-    cout << "Deployment: Transferring " << artifactPath << " to " << server
-         << "..." << endl;
-    simulateDelay(1000);
-    cout << "Deployment: Transfer complete." << endl;
-  }
-
-  void activateNewVersion(string server) {
-    cout << "Deployment: Activating new version on " << server << "..." << endl;
-    simulateDelay(500);
-    cout << "Deployment: Now live on " << server << "!" << endl;
-  }
-
-private:
-  void simulateDelay(int ms) {
-    this_thread::sleep_for(chrono::milliseconds(ms));
+  void sendNotification(string message) {
+    cout << "Notification sent: " << message << endl;
   }
 };
 
-class DeploymentFacade {
+// ---------- Facade ----------
+
+class BankFacade {
 private:
-  VersionControlSystem vcs;
-  BuildSystem buildSystem;
-  TestingFramework testingFramework;
-  DeploymentTarget deploymentTarget;
+  Account account;
+  Security security;
+  Funds funds;
+  Notification notification;
 
 public:
-  bool deployApplication(string branch, string serverAddress) {
-    cout << "\nFACADE: --- Initiating FULL DEPLOYMENT for branch: " << branch
-         << " to " << serverAddress << " ---" << endl;
-    bool success = true;
+  void withdraw(string accNo, string pin, double amount) {
+    cout << "Starting Withdrawal Process..." << endl;
+    if (account.verifyAccount(accNo) && security.checkPin(pin) &&
+        funds.hasSufficientFunds(amount)) {
 
-    try {
-      vcs.pullLatestChanges(branch);
-
-      if (!buildSystem.compileProject()) {
-        cerr << "FACADE: DEPLOYMENT FAILED - Build compilation failed." << endl;
-        return false;
-      }
-
-      string artifactPath = buildSystem.getArtifactPath();
-
-      if (!testingFramework.runUnitTests()) {
-        cerr << "FACADE: DEPLOYMENT FAILED - Unit tests failed." << endl;
-        return false;
-      }
-
-      if (!testingFramework.runIntegrationTests()) {
-        cerr << "FACADE: DEPLOYMENT FAILED - Integration tests failed." << endl;
-        return false;
-      }
-
-      deploymentTarget.transferArtifact(artifactPath, serverAddress);
-      deploymentTarget.activateNewVersion(serverAddress);
-
-      cout << "FACADE: APPLICATION DEPLOYED SUCCESSFULLY to " << serverAddress
-           << "!" << endl;
-    } catch (exception &e) {
-      cerr << "FACADE: DEPLOYMENT FAILED - An unexpected error occurred: "
-           << e.what() << endl;
-      success = false;
+      funds.debit(amount);
+      notification.sendNotification("Withdrawal of $" + to_string(amount) +
+                                    " successful.");
+    } else {
+      cout << "Withdrawal Failed!" << endl;
     }
-
-    return success;
   }
 };
-class DeploymentAppFacade {
-public:
-  static void main() {
-    DeploymentFacade deploymentFacade;
 
-    // Deploy to production
-    deploymentFacade.deployApplication("main", "prod.server.example.com");
+// ---------- Client ----------
 
-    // Deploy a feature branch to staging
-    cout << "\n--- Deploying feature branch to staging ---" << endl;
-    deploymentFacade.deployApplication("feature/new-ui",
-                                       "staging.server.example.com");
-  }
-};
 int main() {
-  DeploymentAppFacade::main();
+  BankFacade bank;
+  bank.withdraw("ACC123", "4321", 100.0);
   return 0;
 }

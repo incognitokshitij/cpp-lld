@@ -3,3 +3,5 @@
 using namespace std;
 
 int main() { cout << "Hello\n"; }
+
+//  void simulateDelay() { this_thread::sleep_for(chrono::milliseconds(1000)); }
