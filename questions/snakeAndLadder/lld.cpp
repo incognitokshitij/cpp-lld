@@ -406,6 +406,8 @@ public:
 };
 
 int main() {
+
+    
     cout << "=== SNAKE AND LADDER GAME ===" << endl;
 
     // Short demo: standard 10x10 board, 2 players.
